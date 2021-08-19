@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ log4j2.xml
+  ~ Copyright 2018 Qunhe Tech, all rights reserved.
+  ~ Qunhe PROPRIETARY/CONFIDENTIAL, any form of usage is subject to approval.
+  -->
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %p [%c] - %m%n"/>
+        </Console>
+        <RollingRandomAccessFile name="File" fileName="logs/log_"
+                                 append="true"
+                                 filePattern="logs/log_%d{yyyy-MM-dd}.log">
+            <PatternLayout>
+                <Charset>UTF-8</Charset>
+                <Pattern>%d %p [%c] - %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="7"/>
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile name="HunterFile"
+                                 bufferedIO="true"
+                                 fileName="logs/hunter_log_" append="true"
+                                 filePattern="logs/hunter_log_.%i">
+            <PatternLayout>
+                <Charset>UTF-8</Charset>
+                <Pattern>%d %p [%c] - %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="200 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+        <!--rpc log-->
+        <logger name="com.qunhe.rpc" level="INFO" additivity="false">
+            <AppenderRef ref="File"/>
+        </logger>
+
+        <!--com.taobao log-->
+        <logger name="com.taobao" level="WARN" additivity="false">
+            <AppenderRef ref="File"/>
+        </logger>
+
+        <!--TDDL log-->
+        <logger name="TDDL_Snapshot_LOG" level="WARN" additivity="false">
+            <AppenderRef ref="File"/>
+        </logger>
+
+        <logger name="com.qunhe.hunter" level="INFO" additivity="false">
+            <AppenderRef ref="HunterFile"/>
+        </logger>
+
+        <root level="INFO">
+            <appender-ref ref="File"/>
+            <appender-ref ref="Console"/>
+        </root>
+    </Loggers>
+
+</Configuration>
