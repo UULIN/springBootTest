@@ -1,0 +1,20 @@
+service:
+  version:
+    default:
+      com.qunhe.exabrain.commoditycenterservice:default
+      com.qunhe.instdeco.service.messagecenter:default
+
+stage: prod
+
+
+# sso
+qunhe:
+  kuauth:
+    appName: cop.kujiale|owt.qa|pdl.data|service.data-diff
+    switchOffReqLog: false
+  tddl:
+    app-name: data_diff-data_diff-prod
+  search-service:
+    host: http://data-search-prod.k8s-aliyun.qunhequnhe.com
+
+

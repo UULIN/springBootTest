@@ -1,0 +1,33 @@
+livenessProbe:
+  httpGet:
+    path: /healthz
+
+deploy:
+  - stage: dev
+    port: 80
+    env:
+      - name: JAVA_OPTIONS
+        value: -Xmx2G -Dspring.profiles.active=dev -Dqunhe.service.version=dev -Dqunhe.service.port=80 -Dstage=dev
+  - stage: stable
+    port: 80
+    env:
+      - name: JAVA_OPTIONS
+        value: -Xmx2G -Dspring.profiles.active=dev -Dqunhe.service.version=default -Dqunhe.service.port=80 -Dstage=dev
+  - stage: sit
+    port: 80
+    env:
+      - name: JAVA_OPTIONS
+        value: -Xmx2G -Dspring.profiles.active=sit -Dqunhe.service.version=sit -Dqunhe.service.port=80 -Dstage=dev
+  - stage: prod_test
+    port: 80
+    env:
+      - name: JAVA_OPTIONS
+        value: -Xms2G -Xmx2G -Dspring.profiles.active=prod_test -Dqunhe.service.port=80 -Dstage=prod_test
+  - stage: prod
+    port: 80
+    env:
+      - name: JAVA_OPTIONS
+        value: -Xms4G -Xmx4G -Dspring.profiles.active=prod -Dqunhe.service.port=80 -Dstage=prod
+    preStop:
+      soaPreStop: true
+      shutDownPath: /_management_/shutDown

@@ -1,0 +1,17 @@
+singleServerConfig:
+  address: redis://10.1.6.125:6379
+  password: null
+  database: 10
+  idleConnectionTimeout: 10000
+  pingTimeout: 1000
+  connectTimeout: 10000
+  timeout: 3000
+  retryAttempts: 3
+  retryInterval: 1500
+  subscriptionsPerConnection: 5
+  clientName: pangtututRedisCli
+  subscriptionConnectionMinimumIdleSize: 1
+  subscriptionConnectionPoolSize: 16
+  connectionMinimumIdleSize: 8
+  connectionPoolSize: 16
+  dnsMonitoringInterval: 5000
